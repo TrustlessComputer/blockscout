@@ -39,7 +39,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: blockscout/blockscout
+          images: synxless/blockscout
 
       - name: Build & Push Docker image
         uses: docker/build-push-action@v3
@@ -47,9 +47,9 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          cache-from: type=registry,ref=blockscout/blockscout:buildcache
-          cache-to: type=registry,ref=blockscout/blockscout:buildcache,mode=max
-          tags: blockscout/blockscout:latest, blockscout/blockscout:${{ env.RELEASE_VERSION }}
+          cache-from: type=registry,ref=synxless/blockscout:buildcache
+          cache-to: type=registry,ref=synxless/blockscout:buildcache,mode=max
+          tags: synxless/blockscout:latest, synxless/blockscout:${{ env.RELEASE_VERSION }}
           platforms: |
             linux/arm64
             linux/amd64
