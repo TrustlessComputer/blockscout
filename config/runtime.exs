@@ -29,7 +29,8 @@ indexer_empty_blocks_sanitizer_batch_size =
     _ -> indexer_empty_blocks_sanitizer_batch_size_default
   end
 
-config :indexer, Indexer.Fetcher.EmptyBlocksSanitizer, batch_size: indexer_empty_blocks_sanitizer_batch_size
+config :indexer, Indexer.Fetcher.EmptyBlocksSanitizer,
+  batch_size: indexer_empty_blocks_sanitizer_batch_size
 
 ######################
 ### BlockScout Web ###
@@ -55,7 +56,7 @@ config :block_scout_web, BlockScoutWeb.Endpoint,
 config :block_scout_web, :footer,
   chat_link: System.get_env("FOOTER_CHAT_LINK", "https://discord.gg/blockscout"),
   forum_link: System.get_env("FOOTER_FORUM_LINK", "https://forum.poa.network/c/blockscout"),
-  github_link: System.get_env("FOOTER_GITHUB_LINK", "https://github.com/blockscout/blockscout"),
+  github_link: System.get_env("FOOTER_GITHUB_LINK", "https://github.com/trustlesscomputer"),
   enable_forum_link: System.get_env("FOOTER_ENABLE_FORUM_LINK", "false") == "true"
 
 # Configures Ueberauth's Auth0 auth provider
@@ -73,8 +74,13 @@ config :block_scout_web,
   version: System.get_env("BLOCKSCOUT_VERSION"),
   release_link: System.get_env("RELEASE_LINK"),
   decompiled_smart_contract_token: System.get_env("DECOMPILED_SMART_CONTRACT_TOKEN"),
-  show_percentage: if(System.get_env("SHOW_ADDRESS_MARKETCAP_PERCENTAGE", "true") == "false", do: false, else: true),
-  checksum_address_hashes: if(System.get_env("CHECKSUM_ADDRESS_HASHES", "true") == "false", do: false, else: true)
+  show_percentage:
+    if(System.get_env("SHOW_ADDRESS_MARKETCAP_PERCENTAGE", "true") == "false",
+      do: false,
+      else: true
+    ),
+  checksum_address_hashes:
+    if(System.get_env("CHECKSUM_ADDRESS_HASHES", "true") == "false", do: false, else: true)
 
 config :block_scout_web, BlockScoutWeb.Chain,
   network: System.get_env("NETWORK"),
@@ -123,7 +129,8 @@ config :block_scout_web,
 
 config :block_scout_web, :contract,
   verification_max_libraries: contract_verification_max_libraries,
-  max_length_to_show_string_without_trimming: System.get_env("CONTRACT_MAX_STRING_LENGTH_WITHOUT_TRIMMING", "2040"),
+  max_length_to_show_string_without_trimming:
+    System.get_env("CONTRACT_MAX_STRING_LENGTH_WITHOUT_TRIMMING", "2040"),
   disable_interaction: System.get_env("CONTRACT_DISABLE_INTERACTION", "false") == "true"
 
 default_api_rate_limit = 50
@@ -203,11 +210,14 @@ config :block_scout_web, :account,
 ########################
 
 config :ethereum_jsonrpc,
-  rpc_transport: if(System.get_env("ETHEREUM_JSONRPC_TRANSPORT", "http") == "http", do: :http, else: :ipc),
+  rpc_transport:
+    if(System.get_env("ETHEREUM_JSONRPC_TRANSPORT", "http") == "http", do: :http, else: :ipc),
   ipc_path: System.get_env("IPC_PATH"),
-  disable_archive_balances?: System.get_env("ETHEREUM_JSONRPC_DISABLE_ARCHIVE_BALANCES", "false") == "true"
+  disable_archive_balances?:
+    System.get_env("ETHEREUM_JSONRPC_DISABLE_ARCHIVE_BALANCES", "false") == "true"
 
-debug_trace_transaction_timeout = System.get_env("ETHEREUM_JSONRPC_DEBUG_TRACE_TRANSACTION_TIMEOUT", "5s")
+debug_trace_transaction_timeout =
+  System.get_env("ETHEREUM_JSONRPC_DEBUG_TRACE_TRANSACTION_TIMEOUT", "5s")
 
 config :ethereum_jsonrpc, EthereumJSONRPC.Geth,
   debug_trace_transaction_timeout: debug_trace_transaction_timeout,
@@ -260,7 +270,8 @@ config :explorer, Explorer.Chain.Events.Listener,
 config :explorer, Explorer.ChainSpec.GenesisData,
   chain_spec_path: System.get_env("CHAIN_SPEC_PATH"),
   emission_format: System.get_env("EMISSION_FORMAT", "DEFAULT"),
-  rewards_contract_address: System.get_env("REWARDS_CONTRACT", "0xeca443e8e1ab29971a45a9c57a6a9875701698a5")
+  rewards_contract_address:
+    System.get_env("REWARDS_CONTRACT", "0xeca443e8e1ab29971a45a9c57a6a9875701698a5")
 
 config :explorer, Explorer.Chain.Cache.BlockNumber,
   ttl_check_interval: if(disable_indexer == "true", do: :timer.seconds(1), else: false),
@@ -323,9 +334,14 @@ config :explorer, Explorer.ExchangeRates,
 
 exchange_rates_source =
   cond do
-    System.get_env("EXCHANGE_RATES_SOURCE") == "coin_gecko" -> Explorer.ExchangeRates.Source.CoinGecko
-    System.get_env("EXCHANGE_RATES_SOURCE") == "coin_market_cap" -> Explorer.ExchangeRates.Source.CoinMarketCap
-    true -> Explorer.ExchangeRates.Source.CoinGecko
+    System.get_env("EXCHANGE_RATES_SOURCE") == "coin_gecko" ->
+      Explorer.ExchangeRates.Source.CoinGecko
+
+    System.get_env("EXCHANGE_RATES_SOURCE") == "coin_market_cap" ->
+      Explorer.ExchangeRates.Source.CoinMarketCap
+
+    true ->
+      Explorer.ExchangeRates.Source.CoinGecko
   end
 
 config :explorer, Explorer.ExchangeRates.Source, source: exchange_rates_source
@@ -339,7 +355,10 @@ config :explorer, Explorer.ExchangeRates.Source.CoinGecko,
   coin_id: System.get_env("EXCHANGE_RATES_COINGECKO_COIN_ID")
 
 token_exchange_rate_interval =
-  case "TOKEN_EXCHANGE_RATE_INTERVAL" |> System.get_env("") |> String.downcase() |> Integer.parse() do
+  case "TOKEN_EXCHANGE_RATE_INTERVAL"
+       |> System.get_env("")
+       |> String.downcase()
+       |> Integer.parse() do
     {milliseconds, "ms"} -> milliseconds
     {hours, "h"} -> :timer.hours(hours)
     {minutes, "m"} -> :timer.minutes(minutes)
@@ -348,7 +367,10 @@ token_exchange_rate_interval =
   end
 
 token_exchange_rate_refetch_interval =
-  case "TOKEN_EXCHANGE_RATE_REFETCH_INTERVAL" |> System.get_env("") |> String.downcase() |> Integer.parse() do
+  case "TOKEN_EXCHANGE_RATE_REFETCH_INTERVAL"
+       |> System.get_env("")
+       |> String.downcase()
+       |> Integer.parse() do
     {hours, h} when h in ["h", ""] -> :timer.hours(hours)
     {minutes, "m"} -> :timer.minutes(minutes)
     {seconds, "s"} -> :timer.seconds(seconds)
@@ -417,7 +439,8 @@ case System.get_env("SUPPLY_MODULE") do
 end
 
 config :explorer,
-  checksum_function: System.get_env("CHECKSUM_FUNCTION") && String.to_atom(System.get_env("CHECKSUM_FUNCTION"))
+  checksum_function:
+    System.get_env("CHECKSUM_FUNCTION") && String.to_atom(System.get_env("CHECKSUM_FUNCTION"))
 
 config :explorer, Explorer.Chain.Cache.Blocks,
   ttl_check_interval: if(disable_indexer == "true", do: :timer.seconds(1), else: false),
@@ -472,9 +495,14 @@ config :explorer, Explorer.Account,
     template: System.get_env("ACCOUNT_SENDGRID_TEMPLATE")
   ]
 
-{token_id_migration_first_block, _} = Integer.parse(System.get_env("TOKEN_ID_MIGRATION_FIRST_BLOCK", "0"))
-{token_id_migration_concurrency, _} = Integer.parse(System.get_env("TOKEN_ID_MIGRATION_CONCURRENCY", "1"))
-{token_id_migration_batch_size, _} = Integer.parse(System.get_env("TOKEN_ID_MIGRATION_BATCH_SIZE", "500"))
+{token_id_migration_first_block, _} =
+  Integer.parse(System.get_env("TOKEN_ID_MIGRATION_FIRST_BLOCK", "0"))
+
+{token_id_migration_concurrency, _} =
+  Integer.parse(System.get_env("TOKEN_ID_MIGRATION_CONCURRENCY", "1"))
+
+{token_id_migration_batch_size, _} =
+  Integer.parse(System.get_env("TOKEN_ID_MIGRATION_BATCH_SIZE", "500"))
 
 config :explorer, :token_id_migration,
   first_block: token_id_migration_first_block,
@@ -484,9 +512,15 @@ config :explorer, :token_id_migration,
 min_missing_block_number_batch_size_default_str = "100000"
 
 {min_missing_block_number_batch_size, _} =
-  Integer.parse(System.get_env("MIN_MISSING_BLOCK_NUMBER_BATCH_SIZE", min_missing_block_number_batch_size_default_str))
+  Integer.parse(
+    System.get_env(
+      "MIN_MISSING_BLOCK_NUMBER_BATCH_SIZE",
+      min_missing_block_number_batch_size_default_str
+    )
+  )
 
-config :explorer, Explorer.Chain.Cache.MinMissingBlockNumber, batch_size: min_missing_block_number_batch_size
+config :explorer, Explorer.Chain.Cache.MinMissingBlockNumber,
+  batch_size: min_missing_block_number_batch_size
 
 ###############
 ### Indexer ###
@@ -550,7 +584,8 @@ config :indexer, Indexer.Fetcher.PendingTransaction.Supervisor,
     System.get_env("ETHEREUM_JSONRPC_VARIANT") == "besu" ||
       System.get_env("INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER", "false") == "true"
 
-token_balance_on_demand_fetcher_threshold_minutes = System.get_env("TOKEN_BALANCE_ON_DEMAND_FETCHER_THRESHOLD_MINUTES")
+token_balance_on_demand_fetcher_threshold_minutes =
+  System.get_env("TOKEN_BALANCE_ON_DEMAND_FETCHER_THRESHOLD_MINUTES")
 
 token_balance_on_demand_fetcher_threshold =
   case token_balance_on_demand_fetcher_threshold_minutes &&
@@ -563,7 +598,8 @@ config :indexer, Indexer.Fetcher.TokenBalanceOnDemand,
   threshold: token_balance_on_demand_fetcher_threshold,
   fallback_threshold_in_blocks: 500
 
-coin_balance_on_demand_fetcher_threshold_minutes = System.get_env("COIN_BALANCE_ON_DEMAND_FETCHER_THRESHOLD_MINUTES")
+coin_balance_on_demand_fetcher_threshold_minutes =
+  System.get_env("COIN_BALANCE_ON_DEMAND_FETCHER_THRESHOLD_MINUTES")
 
 coin_balance_on_demand_fetcher_threshold =
   case coin_balance_on_demand_fetcher_threshold_minutes &&
@@ -593,7 +629,8 @@ config :indexer, Indexer.Fetcher.EmptyBlocksSanitizer.Supervisor,
 
 config :indexer, Indexer.Supervisor, enabled: System.get_env("DISABLE_INDEXER") != "true"
 
-config :indexer, Indexer.Block.Realtime.Supervisor, enabled: System.get_env("DISABLE_REALTIME_INDEXER") != "true"
+config :indexer, Indexer.Block.Realtime.Supervisor,
+  enabled: System.get_env("DISABLE_REALTIME_INDEXER") != "true"
 
 config :indexer, Indexer.Fetcher.TokenInstance.Supervisor,
   disabled?: System.get_env("DISABLE_TOKEN_INSTANCE_FETCHER", "false") == "true"
@@ -602,10 +639,20 @@ blocks_catchup_fetcher_batch_size_default_str = "10"
 blocks_catchup_fetcher_concurrency_default_str = "10"
 
 {blocks_catchup_fetcher_batch_size, _} =
-  Integer.parse(System.get_env("INDEXER_CATCHUP_BLOCKS_BATCH_SIZE", blocks_catchup_fetcher_batch_size_default_str))
+  Integer.parse(
+    System.get_env(
+      "INDEXER_CATCHUP_BLOCKS_BATCH_SIZE",
+      blocks_catchup_fetcher_batch_size_default_str
+    )
+  )
 
 {blocks_catchup_fetcher_concurrency, _} =
-  Integer.parse(System.get_env("INDEXER_CATCHUP_BLOCKS_CONCURRENCY", blocks_catchup_fetcher_concurrency_default_str))
+  Integer.parse(
+    System.get_env(
+      "INDEXER_CATCHUP_BLOCKS_CONCURRENCY",
+      blocks_catchup_fetcher_concurrency_default_str
+    )
+  )
 
 config :indexer, Indexer.Block.Catchup.Fetcher,
   batch_size: blocks_catchup_fetcher_batch_size,
@@ -624,17 +671,21 @@ blocks_catchup_fetcher_missing_ranges_batch_size_default_str = "100000"
 config :indexer, Indexer.Block.Catchup.MissingRangesCollector,
   missing_ranges_batch_size: blocks_catchup_fetcher_missing_ranges_batch_size
 
-{block_reward_fetcher_batch_size, _} = Integer.parse(System.get_env("INDEXER_BLOCK_REWARD_BATCH_SIZE", "10"))
+{block_reward_fetcher_batch_size, _} =
+  Integer.parse(System.get_env("INDEXER_BLOCK_REWARD_BATCH_SIZE", "10"))
 
-{block_reward_fetcher_concurrency, _} = Integer.parse(System.get_env("INDEXER_BLOCK_REWARD_CONCURRENCY", "4"))
+{block_reward_fetcher_concurrency, _} =
+  Integer.parse(System.get_env("INDEXER_BLOCK_REWARD_CONCURRENCY", "4"))
 
 config :indexer, Indexer.Fetcher.BlockReward,
   batch_size: block_reward_fetcher_batch_size,
   concurrency: block_reward_fetcher_concurrency
 
-{token_instance_fetcher_batch_size, _} = Integer.parse(System.get_env("INDEXER_TOKEN_INSTANCE_BATCH_SIZE", "1"))
+{token_instance_fetcher_batch_size, _} =
+  Integer.parse(System.get_env("INDEXER_TOKEN_INSTANCE_BATCH_SIZE", "1"))
 
-{token_instance_fetcher_concurrency, _} = Integer.parse(System.get_env("INDEXER_TOKEN_INSTANCE_CONCURRENCY", "10"))
+{token_instance_fetcher_concurrency, _} =
+  Integer.parse(System.get_env("INDEXER_TOKEN_INSTANCE_CONCURRENCY", "10"))
 
 config :indexer, Indexer.Fetcher.TokenInstance,
   batch_size: token_instance_fetcher_batch_size,
@@ -650,9 +701,11 @@ config :indexer, Indexer.Fetcher.InternalTransaction,
   batch_size: internal_transaction_fetcher_batch_size,
   concurrency: internal_transaction_fetcher_concurrency
 
-{coin_balance_fetcher_batch_size, _} = Integer.parse(System.get_env("INDEXER_COIN_BALANCES_BATCH_SIZE", "500"))
+{coin_balance_fetcher_batch_size, _} =
+  Integer.parse(System.get_env("INDEXER_COIN_BALANCES_BATCH_SIZE", "500"))
 
-{coin_balance_fetcher_concurrency, _} = Integer.parse(System.get_env("INDEXER_COIN_BALANCES_CONCURRENCY", "4"))
+{coin_balance_fetcher_concurrency, _} =
+  Integer.parse(System.get_env("INDEXER_COIN_BALANCES_CONCURRENCY", "4"))
 
 config :indexer, Indexer.Fetcher.CoinBalance,
   batch_size: coin_balance_fetcher_batch_size,
@@ -660,6 +713,7 @@ config :indexer, Indexer.Fetcher.CoinBalance,
 
 Code.require_file("#{config_env()}.exs", "config/runtime")
 
-for config <- "../apps/*/config/runtime/#{config_env()}.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
+for config <-
+      "../apps/*/config/runtime/#{config_env()}.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
   Code.require_file("#{config_env()}.exs", Path.dirname(config))
 end
