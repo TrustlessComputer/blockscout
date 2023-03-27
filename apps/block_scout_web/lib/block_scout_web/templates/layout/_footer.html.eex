@@ -20,7 +20,6 @@
     <div class="row">
       <div class="col-xs-12 col-lg-3">
         <p class="footer-info-text"><%= gettext("Block Explorer for Trustless Computer") %></p>
-            <%= render BlockScoutWeb.LayoutView, "_add_chain_to_mm.html" %>
         <div class="footer-social-icons">
           <a href="<%= Application.get_env(:block_scout_web, :footer)[:github_link] %>" rel="noreferrer" target="_blank" class="footer-social-icon" title='<%= gettext("Github") %>'>
             <div class="footer-social-icon-container fontawesome-icon github"></div>
@@ -31,6 +30,11 @@
         </div>
       </div>
 
+      <div class="col-xs-12 col-md-4 col-lg-<%= col_size %> footer-list">
+        <ul>
+          <%= render BlockScoutWeb.LayoutView, "_add_chain_to_mm.html" %>
+        </ul>
+      </div>
       <% main_nets = main_nets(other_networks()) %>
 
       <%= unless Enum.empty?(main_nets) do %>
