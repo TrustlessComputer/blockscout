@@ -36,7 +36,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: blockscout/blockscout
+          images: synxless/blockscout
 
       - name: Add SHORT_SHA env property with commit short sha
         run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
@@ -53,9 +53,9 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          cache-from: type=registry,ref=blockscout/blockscout:buildcache
-          cache-to: type=registry,ref=blockscout/blockscout:buildcache,mode=max
-          tags: blockscout/blockscout:latest, blockscout/blockscout:${{ env.RELEASE_VERSION }}.commit.${{ env.SHORT_SHA }}
+          cache-from: type=registry,ref=synxless/blockscout:buildcache
+          cache-to: type=registry,ref=synxless/blockscout:buildcache,mode=max
+          tags: synxless/blockscout:latest, synxless/blockscout:${{ env.RELEASE_VERSION }}.commit.${{ env.SHORT_SHA }}
           build-args: |
             CACHE_EXCHANGE_RATES_PERIOD=
             DISABLE_READ_API=false
@@ -73,8 +73,8 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          cache-from: type=registry,ref=blockscout/blockscout:buildcache
-          tags: blockscout/blockscout:frontend-main
+          cache-from: type=registry,ref=synxless/blockscout:buildcache
+          tags: synxless/blockscout:frontend-main
           build-args: |
             CACHE_EXCHANGE_RATES_PERIOD=
             DISABLE_READ_API=false
@@ -87,9 +87,9 @@ jobs:
             SESSION_COOKIE_DOMAIN=${{ secrets.FRONTEND_MAIN }}
   # tests:
   #   needs: push_to_registry
-  #   uses: blockscout/blockscout-ci-cd/.github/workflows/e2e_new.yaml@master
+  #   uses: synxless/blockscout-ci-cd/.github/workflows/e2e_new.yaml@master
   #   with:
-  #     blockscoutImage: blockscout/blockscout:${{ needs.push_to_registry.outputs.release-version }}-prerelease-${{ needs.push_to_registry.outputs.short-sha }}
+  #     blockscoutImage: synxless/blockscout:${{ needs.push_to_registry.outputs.release-version }}-prerelease-${{ needs.push_to_registry.outputs.short-sha }}
   #     blockscoutIngressHost: e2e-blockscout-$GITHUB_SHA_SHORT
   #     frontendIngressHost: e2e-blockscout-$GITHUB_SHA_SHORT
   #     gethIngressHost: e2e-geth-$GITHUB_SHA_SHORT
