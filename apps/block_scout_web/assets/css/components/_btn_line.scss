@@ -1,5 +1,8 @@
 $btn-line-bg: #fff !default;
 $btn-line-color: $secondary !default;
+.btn-line {
+  font-size: 16px;
+}
 
 .btn-line {
   @include btn-line($btn-line-bg, $btn-line-color);

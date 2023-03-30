@@ -1,4 +1,4 @@
-@use 'sass:math';
+@use "sass:math";
 
 $api-text-monospace-color: $secondary !default;
 $api-text-monospace-background: rgba($api-text-monospace-color, 0.1) !default;
@@ -99,8 +99,8 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 
 .api-doc-list-item-query {
   display: inline-block;
-  font-size: 12px;
-  line-height: 1.2;
+  font-size: 14px;
+  line-height: 1.4;
   margin-bottom: 20px;
   word-break: break-all;
   word-wrap: break-word;
@@ -119,7 +119,7 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 }
 
 .api-doc-list-item-description {
-  width: 100%
+  width: 100%;
 }
 
 .api-doc-list-item-controls {
@@ -153,7 +153,7 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
   align-self: flex-end;
   color: $api-doc-list-item-view-more-color;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   margin-top: auto;
   white-space: nowrap;
 
@@ -223,9 +223,9 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 
 .api-doc-parameters-list-item-title {
   color: #333;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.6;
   margin: 0 0 8px;
 }
 
@@ -239,9 +239,9 @@ $api-doc-list-item-view-more-color: $api-doc-list-item-title-color !default;
 
 .api-doc-parameters-list-item-description {
   color: #333;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.6;
   margin: 0 0 8px;
 
   &:last-child {

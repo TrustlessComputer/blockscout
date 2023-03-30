@@ -56,9 +56,9 @@ $tile-body-a-color: #5959d8 !default;
 /*********************************************************************/
 
 .tile-label {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.8;
   margin: 0 0 2px;
   text-align: center;
 
@@ -97,7 +97,7 @@ $tile-body-a-color: #5959d8 !default;
 }
 
 .tile-status-label {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 1.2;
   text-align: center;
@@ -118,14 +118,14 @@ $tile-body-a-color: #5959d8 !default;
 
 .tile-bottom-contents {
   background-color: #f6f7f9;
-  font-size: 12px;
-  line-height: 1.2;
+  font-size: 14px;
+  line-height: 1.4;
   padding: 0.8rem 1rem;
 }
 
 .tile-transactions {
   color: #a3a9b5;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.2;
   margin-bottom: 10px;
@@ -180,7 +180,7 @@ $tile-body-a-color: #5959d8 !default;
     color: $tile-body-a-color;
   }
 
-  a[data-test=token_link] {
+  a[data-test="token_link"] {
     color: $tile-body-a-color;
   }
 
@@ -197,7 +197,7 @@ $tile-body-a-color: #5959d8 !default;
 
   .tile-title {
     color: $tile-title-color;
-    font-size: 12px;
+    font-size: 18px;
 
     &-hash {
       font-weight: 300;
@@ -212,8 +212,8 @@ $tile-body-a-color: #5959d8 !default;
   border: 1px solid $border-color;
   color: $text-muted;
   flex-grow: 1;
-  font-size: 12px;
-  line-height: 1.4rem;
+  font-size: 16px;
+  line-height: 1.6rem;
   padding: $tile-padding;
 
   @include generate-tile-block(
@@ -353,8 +353,8 @@ $tile-body-a-color: #5959d8 !default;
         padding-right: 6px;
       }
     }
-    .tile-type-block {  
-      overflow: hidden; 
+    .tile-type-block {
+      overflow: hidden;
     }
     .row {
       @include media-breakpoint-down(lg) {
@@ -383,7 +383,7 @@ $tile-body-a-color: #5959d8 !default;
   &:before {
     width: inherit;
     height: inherit;
-    content: '';
+    content: "";
     position: absolute;
     background: linear-gradient(to right, #f5f6fa 2%, #eee 18%, #f5f6fa 33%);
     animation-duration: 1.7s;
@@ -407,14 +407,19 @@ $tile-body-a-color: #5959d8 !default;
 }
 
 @keyframes tilePlaceholderAnimate {
-  0%{ background-position: -650px 0; }
-  100% { background-position: 650px 0; }
+  0% {
+    background-position: -650px 0;
+  }
+  100% {
+    background-position: 650px 0;
+  }
 }
 
 // Loading Animation
 
 @keyframes playBlockLoadingAnimation {
-  0%, 90% {
+  0%,
+  90% {
     opacity: 1;
   }
   100% {
@@ -441,10 +446,10 @@ $tile-body-a-color: #5959d8 !default;
     left: -4px;
     width: calc(100% + 5px);
     height: calc(100% + 2px);
-    background-color: #F6F7F9;
+    background-color: #f6f7f9;
     border-radius: 4px;
     overflow: hidden;
-    transition: .24s ease-out;
+    transition: 0.24s ease-out;
     border-top: 1px solid #dee2e6;
     border-right: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
@@ -497,7 +502,7 @@ $tile-body-a-color: #5959d8 !default;
   }
 }
 
-$cube-bezier: cubic-bezier(.25,.8,.25,1);
+$cube-bezier: cubic-bezier(0.25, 0.8, 0.25, 1);
 $cube-quantity: 5;
 
 .cube-animation-wrapper {
@@ -538,7 +543,7 @@ $cube-quantity: 5;
       left: 25px * $cube-quantity;
     }
     .cube-animation-column:nth-of-type(#{$cube-quantity}) svg {
-      transform: translate3d(0,0,0);
+      transform: translate3d(0, 0, 0);
       animation: shrink-expand 2.8s $cube-bezier forwards;
       animation-delay: -0.16s * $cube-quantity;
     }

@@ -3,7 +3,7 @@
 <% test_nets = test_nets(dropdown_nets()) %>
 <% main_nets = dropdown_head_main_nets() %>
 <nav class="navbar navbar-dark navbar-expand-lg navbar-primary" data-selector="navbar" id="top-navbar">
-  <div class="container-fluid navbar-container">
+  <div class="container navbar-container">
     <%= link to: webapp_url(@conn), class: "navbar-brand", "data-test": "header_logo" do %>
       <%= if logo() do %>
         <img class="navbar-logo" id="navbar-logo" src="<%= static_path(@conn, logo()) %>" alt="<%= subnetwork_title() %>" />

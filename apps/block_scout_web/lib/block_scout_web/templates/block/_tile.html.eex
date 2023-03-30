@@ -51,7 +51,7 @@
           <!-- validator reward -->
           <%= gettext "Reward" %>
           <span class="ml-2">
-            <%= combined_rewards_value(@block) %>
+          <b><%= combined_rewards_value(@block) %></b>
           </span>
         </div>
       <% end %>

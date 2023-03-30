@@ -67,22 +67,31 @@ $pagination-page-link-color-active: #fff !default;
       }
 
       &.active .page-link {
-        @include pagination-container-base($pagination-page-link-background-active, $pagination-page-link-color-active);
+        @include pagination-container-base(
+          $pagination-page-link-background-active,
+          $pagination-page-link-color-active
+        );
         cursor: default;
         pointer-events: none;
 
         &:hover {
-          @include pagination-container-base($pagination-page-link-background-active, $pagination-page-link-color-active);
+          @include pagination-container-base(
+            $pagination-page-link-background-active,
+            $pagination-page-link-color-active
+          );
         }
       }
     }
 
     .page-link {
-      @include pagination-container-base($pagination-page-link-background, $pagination-page-link-color);
+      @include pagination-container-base(
+        $pagination-page-link-background,
+        $pagination-page-link-color
+      );
       align-items: center;
       border-radius: 2px;
       display: flex;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       height: 24px;
       margin: 0;
@@ -94,10 +103,13 @@ $pagination-page-link-color-active: #fff !default;
       cursor: pointer;
 
       &:not(.no-hover):hover {
-        @include pagination-container-base($pagination-page-link-background-active, $pagination-page-link-color-active);
+        @include pagination-container-base(
+          $pagination-page-link-background-active,
+          $pagination-page-link-color-active
+        );
       }
 
-      &[href=''] {
+      &[href=""] {
         pointer-events: none;
       }
 
@@ -106,7 +118,10 @@ $pagination-page-link-color-active: #fff !default;
       }
 
       &[disabled] {
-        @include pagination-container-base($pagination-page-link-background, $pagination-page-link-color);
+        @include pagination-container-base(
+          $pagination-page-link-background,
+          $pagination-page-link-color
+        );
         cursor: not-allowed;
         opacity: 0.4;
         outline: none;
@@ -116,7 +131,10 @@ $pagination-page-link-color-active: #fff !default;
 
     .page-link-light-hover {
       &:not(.no-hover):hover {
-        @include pagination-container-base($pagination-page-link-background-active, $pagination-page-link-color-active);
+        @include pagination-container-base(
+          $pagination-page-link-background-active,
+          $pagination-page-link-color-active
+        );
         background-color: rgba($pagination-page-link-background-active, 0.5);
         border-color: rgba($pagination-page-link-background-active, 0.5);
       }

@@ -23,12 +23,11 @@ $navbar-logo-width: 100% !default;
   }
 
   .navbar-nav {
-
     .nav-submenu {
       padding: 10px 20px;
-      color: $header-links-color; 
+      color: $header-links-color;
     }
-    
+
     .nav-link {
       outline: none;
       align-items: center;
@@ -137,20 +136,24 @@ $navbar-logo-width: 100% !default;
     width: 100%;
     z-index: 1;
 
-    &[placeholder]{
+    &[placeholder] {
       text-overflow: ellipsis !important;
     }
-    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        text-overflow: ellipsis  !important;
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      text-overflow: ellipsis !important;
     }
-    &::-moz-placeholder { /* Firefox 19+ */
-        text-overflow: ellipsis  !important;
+    &::-moz-placeholder {
+      /* Firefox 19+ */
+      text-overflow: ellipsis !important;
     }
-    &:-ms-input-placeholder { /* IE 10+ */
-        text-overflow: ellipsis  !important;
+    &:-ms-input-placeholder {
+      /* IE 10+ */
+      text-overflow: ellipsis !important;
     }
-    &:-moz-placeholder { /* Firefox 18- */
-        text-overflow: ellipsis  !important;
+    &:-moz-placeholder {
+      /* Firefox 18- */
+      text-overflow: ellipsis !important;
     }
 
     &:focus {
@@ -227,7 +230,6 @@ $navbar-logo-width: 100% !default;
     form {
       flex-grow: 1;
     }
-
   }
   .input-group {
     width: 100%;
@@ -242,12 +244,13 @@ $navbar-logo-width: 100% !default;
   flex-shrink: 1;
   display: inline-flex;
   .navbar-logo {
+    max-height: 32px;
     max-width: 100%;
   }
 }
 
 .navbar-logo {
-  max-height: $navbar-logo-height;
+  max-height: 30px;
   width: $navbar-logo-width;
 }
 
@@ -275,7 +278,7 @@ $navbar-logo-width: 100% !default;
 }
 
 .add-border {
-  border: 1px solid transparentize($white, 0.30);
+  border: 1px solid transparentize($white, 0.3);
 }
 
 .navbar-collapse {
@@ -287,7 +290,8 @@ $navbar-logo-width: 100% !default;
   }
 }
 
-.navbar-container, .navbar-primary {
+.navbar-container,
+.navbar-primary {
   @media (min-width: 992px) {
     padding-right: 0;
   }
