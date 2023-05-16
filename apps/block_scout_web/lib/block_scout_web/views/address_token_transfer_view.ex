@@ -1,7 +1,7 @@
 defmodule BlockScoutWeb.AddressTokenTransferView do
   use BlockScoutWeb, :view
 
-  alias BlockScoutWeb.AccessHelper
+  alias BlockScoutWeb.AccessHelpers
   alias Explorer.Chain.Address
 
   def format_current_filter(filter) do

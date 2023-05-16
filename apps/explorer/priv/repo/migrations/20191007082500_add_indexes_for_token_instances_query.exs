@@ -1,4 +1,4 @@
-defmodule Explorer.Repo.Migrations.AddIndexesForTokenInstancesQuery do
+defmodule Explorer.Repo.Migrations.AddIndexesForTokenInstrancesQuery do
   use Ecto.Migration
 
   def change do

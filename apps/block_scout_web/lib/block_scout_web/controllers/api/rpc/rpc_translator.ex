@@ -18,7 +18,7 @@ defmodule BlockScoutWeb.API.RPC.RPCTranslator do
   import Plug.Conn
   import Phoenix.Controller, only: [put_view: 2]
 
-  alias BlockScoutWeb.AccessHelper
+  alias BlockScoutWeb.AccessHelpers
   alias BlockScoutWeb.API.APILogger
   alias BlockScoutWeb.API.RPC.RPCView
   alias Phoenix.Controller
@@ -33,7 +33,7 @@ defmodule BlockScoutWeb.API.RPC.RPCTranslator do
          {:ok, {controller, write_actions}} <- translate_module(translations, module),
          {:ok, action} <- translate_action(action),
          true <- action_accessed?(action, write_actions),
-         :ok <- AccessHelper.check_rate_limit(conn),
+         :ok <- AccessHelpers.check_rate_limit(conn),
          {:ok, conn} <- call_controller(conn, controller, action) do
       conn
     else
@@ -56,7 +56,7 @@ defmodule BlockScoutWeb.API.RPC.RPCTranslator do
         |> halt()
 
       :rate_limit_reached ->
-        AccessHelper.handle_rate_limit_deny(conn)
+        AccessHelpers.handle_rate_limit_deny(conn)
 
       _ ->
         conn

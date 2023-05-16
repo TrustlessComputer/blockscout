@@ -17,7 +17,6 @@ defmodule Explorer.Account.Identity do
     field(:name, Explorer.Encrypted.Binary)
     field(:nickname, Explorer.Encrypted.Binary)
     field(:avatar, Explorer.Encrypted.Binary)
-    field(:verification_email_sent_at, :utc_datetime_usec)
 
     has_many(:tag_addresses, TagAddress)
     has_many(:watchlists, Watchlist)
@@ -30,7 +29,7 @@ defmodule Explorer.Account.Identity do
   @doc false
   def changeset(identity, attrs) do
     identity
-    |> cast(attrs, [:uid, :email, :name, :nickname, :avatar, :verification_email_sent_at])
+    |> cast(attrs, [:uid, :email, :name, :nickname, :avatar])
     |> validate_required([:uid, :email, :name])
     |> put_hashed_fields()
   end

@@ -30,4 +30,15 @@ defmodule BlockScoutWeb.CsvExportView do
       |> Address.checksum()
     end
   end
+
+  defp default_period_start do
+    DateTime.utc_now()
+    |> Timex.shift(months: -1)
+    |> Timex.format!("{YYYY}-{0M}-{0D}")
+  end
+
+  defp default_period_end do
+    DateTime.utc_now()
+    |> Timex.format!("{YYYY}-{0M}-{0D}")
+  end
 end

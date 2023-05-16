@@ -11,11 +11,7 @@ defmodule Indexer.Supervisor do
     PendingTransactionsSanitizer
   }
 
-  alias Indexer.Block.Catchup, as: BlockCatchup
-  alias Indexer.Block.Realtime, as: BlockRealtime
-  alias Indexer.Fetcher.TokenInstance.Realtime, as: TokenInstanceRealtime
-  alias Indexer.Fetcher.TokenInstance.Retry, as: TokenInstanceRetry
-  alias Indexer.Fetcher.TokenInstance.Sanitize, as: TokenInstanceSanitize
+  alias Indexer.Block.{Catchup, Realtime}
 
   alias Indexer.Fetcher.{
     BlockReward,
@@ -28,10 +24,10 @@ defmodule Indexer.Supervisor do
     ReplacedTransaction,
     Token,
     TokenBalance,
+    TokenInstance,
     TokenUpdater,
     TransactionAction,
-    UncleBlock,
-    Withdrawal
+    UncleBlock
   }
 
   alias Indexer.Temporary.{
@@ -110,9 +106,10 @@ defmodule Indexer.Supervisor do
         {CoinBalance.Supervisor,
          [[json_rpc_named_arguments: json_rpc_named_arguments, memory_monitor: memory_monitor]]},
         {Token.Supervisor, [[json_rpc_named_arguments: json_rpc_named_arguments, memory_monitor: memory_monitor]]},
-        {TokenInstanceRealtime.Supervisor, [[memory_monitor: memory_monitor]]},
-        {TokenInstanceRetry.Supervisor, [[memory_monitor: memory_monitor]]},
-        {TokenInstanceSanitize.Supervisor, [[memory_monitor: memory_monitor]]},
+        {TokenInstance.Supervisor,
+         [
+           [json_rpc_named_arguments: json_rpc_named_arguments, memory_monitor: memory_monitor]
+         ]},
         configure(TransactionAction.Supervisor, [[memory_monitor: memory_monitor]]),
         {ContractCode.Supervisor,
          [[json_rpc_named_arguments: json_rpc_named_arguments, memory_monitor: memory_monitor]]},
@@ -136,16 +133,15 @@ defmodule Indexer.Supervisor do
         {PendingBlockOperationsSanitizer, [[]]},
 
         # Block fetchers
-        configure(BlockRealtime.Supervisor, [
+        configure(Realtime.Supervisor, [
           %{block_fetcher: realtime_block_fetcher, subscribe_named_arguments: realtime_subscribe_named_arguments},
-          [name: BlockRealtime.Supervisor]
+          [name: Realtime.Supervisor]
         ]),
-        {BlockCatchup.Supervisor,
+        {Catchup.Supervisor,
          [
            %{block_fetcher: block_fetcher, block_interval: block_interval, memory_monitor: memory_monitor},
-           [name: BlockCatchup.Supervisor]
-         ]},
-        {Withdrawal.Supervisor, [[json_rpc_named_arguments: json_rpc_named_arguments]]}
+           [name: Catchup.Supervisor]
+         ]}
       ]
       |> List.flatten()
 

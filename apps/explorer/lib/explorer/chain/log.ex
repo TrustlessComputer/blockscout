@@ -121,7 +121,7 @@ defmodule Explorer.Chain.Log do
   Decode transaction log data.
   """
 
-  def decode(log, transaction, options \\ [], skip_sig_provider? \\ false) do
+  def decode(log, transaction, options \\ []) do
     address_options =
       [
         necessity_by_association: %{
@@ -142,13 +142,13 @@ defmodule Explorer.Chain.Log do
           {:error, :could_not_decode} ->
             case find_candidates(log, transaction, options) do
               {:error, :contract_not_verified, []} ->
-                decode_event_via_sig_provider(log, transaction, false, skip_sig_provider?)
+                decode_event_via_sig_provider(log, transaction)
 
               {:error, :contract_not_verified, candidates} ->
                 {:error, :contract_verified, candidates}
 
               _ ->
-                decode_event_via_sig_provider(log, transaction, false, skip_sig_provider?)
+                decode_event_via_sig_provider(log, transaction)
             end
 
           output ->
@@ -250,9 +250,8 @@ defmodule Explorer.Chain.Log do
     IO.iodata_to_binary([name, "(", text, ")"])
   end
 
-  defp decode_event_via_sig_provider(log, transaction, only_candidates?, skip_sig_provider? \\ false) do
+  defp decode_event_via_sig_provider(log, transaction, only_candidates? \\ false) do
     with true <- SigProviderInterface.enabled?(),
-         false <- skip_sig_provider?,
          {:ok, result} <-
            SigProviderInterface.decode_event(
              [

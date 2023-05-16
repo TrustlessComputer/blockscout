@@ -1,7 +1,7 @@
 import Config
 
 alias EthereumJSONRPC.Variant
-alias Explorer.Repo.ConfigHelper, as: ExplorerConfigHelper
+alias Explorer.Repo.ConfigHelper
 
 ######################
 ### BlockScout Web ###
@@ -27,31 +27,31 @@ config :block_scout_web, BlockScoutWeb.Endpoint,
 
 pool_size =
   if System.get_env("DATABASE_READ_ONLY_API_URL"),
-    do: ConfigHelper.parse_integer_env_var("POOL_SIZE", 50),
-    else: ConfigHelper.parse_integer_env_var("POOL_SIZE", 40)
+    do: ConfigHelper.get_db_pool_size("50"),
+    else: ConfigHelper.get_db_pool_size("40")
 
 # Configures the database
 config :explorer, Explorer.Repo,
   url: System.get_env("DATABASE_URL"),
   pool_size: pool_size,
-  ssl: ExplorerConfigHelper.ssl_enabled?()
+  ssl: ConfigHelper.ssl_enabled?()
 
 pool_size_api =
   if System.get_env("DATABASE_READ_ONLY_API_URL"),
-    do: ConfigHelper.parse_integer_env_var("POOL_SIZE_API", 50),
-    else: ConfigHelper.parse_integer_env_var("POOL_SIZE_API", 10)
+    do: ConfigHelper.get_api_db_pool_size("50"),
+    else: ConfigHelper.get_api_db_pool_size("10")
 
 # Configures API the database
 config :explorer, Explorer.Repo.Replica1,
-  url: ExplorerConfigHelper.get_api_db_url(),
+  url: ConfigHelper.get_api_db_url(),
   pool_size: pool_size_api,
-  ssl: ExplorerConfigHelper.ssl_enabled?()
+  ssl: ConfigHelper.ssl_enabled?()
 
 # Configures Account database
 config :explorer, Explorer.Repo.Account,
-  url: ExplorerConfigHelper.get_account_db_url(),
-  pool_size: ConfigHelper.parse_integer_env_var("ACCOUNT_POOL_SIZE", 50),
-  ssl: ExplorerConfigHelper.ssl_enabled?()
+  url: ConfigHelper.get_account_db_url(),
+  pool_size: ConfigHelper.get_account_db_pool_size("50"),
+  ssl: ConfigHelper.ssl_enabled?()
 
 variant = Variant.get()
 

@@ -10,7 +10,7 @@ defmodule Indexer.Block.Catchup.FetcherTest do
   alias Explorer.Chain.Hash
   alias Indexer.Block
   alias Indexer.Block.Catchup.Fetcher
-  alias Indexer.Block.Catchup.{MissingRangesCollector, MissingRangesManipulator}
+  alias Indexer.Block.Catchup.MissingRangesCollector
   alias Indexer.Fetcher.{BlockReward, CoinBalance, InternalTransaction, Token, TokenBalance, UncleBlock}
 
   @moduletag capture_log: true
@@ -49,7 +49,6 @@ defmodule Indexer.Block.Catchup.FetcherTest do
       Token.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       TokenBalance.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       MissingRangesCollector.start_link([])
-      MissingRangesManipulator.start_link([])
 
       parent = self()
 
@@ -151,7 +150,6 @@ defmodule Indexer.Block.Catchup.FetcherTest do
       Token.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       TokenBalance.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       MissingRangesCollector.start_link([])
-      MissingRangesManipulator.start_link([])
 
       latest_block_number = 2
       latest_block_quantity = integer_to_quantity(latest_block_number)
@@ -309,7 +307,6 @@ defmodule Indexer.Block.Catchup.FetcherTest do
       Token.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       TokenBalance.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       MissingRangesCollector.start_link([])
-      MissingRangesManipulator.start_link([])
 
       latest_block_number = 2
       latest_block_quantity = integer_to_quantity(latest_block_number)
@@ -464,7 +461,6 @@ defmodule Indexer.Block.Catchup.FetcherTest do
       Token.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       TokenBalance.Supervisor.Case.start_supervised!(json_rpc_named_arguments: json_rpc_named_arguments)
       MissingRangesCollector.start_link([])
-      MissingRangesManipulator.start_link([])
 
       latest_block_number = 2
       latest_block_quantity = integer_to_quantity(latest_block_number)

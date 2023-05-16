@@ -53,7 +53,7 @@ defmodule Indexer.Fetcher.PendingBlockOperationsSanitizer do
 
     {_, block_numbers} =
       PendingBlockOperation
-      |> with_cte("cte", as: ^cte_query, materialized: false)
+      |> with_cte("cte", as: ^cte_query)
       |> join(:inner, [pbo], po in "cte", on: pbo.block_hash == po.block_hash)
       |> join(:inner, [pbo, po], b in assoc(pbo, :block))
       |> select([pbo, po, b], b.number)
