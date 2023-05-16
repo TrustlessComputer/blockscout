@@ -4,7 +4,7 @@ defmodule BlockScoutWeb.TokenChannel do
   """
   use BlockScoutWeb, :channel
 
-  alias BlockScoutWeb.{CurrencyHelpers, TokensView}
+  alias BlockScoutWeb.{CurrencyHelper, TokensView}
   alias BlockScoutWeb.Tokens.TransferView
   alias Explorer.Chain
   alias Explorer.Chain.Hash
@@ -21,15 +21,20 @@ defmodule BlockScoutWeb.TokenChannel do
 
   def handle_out(
         "token_transfer",
-        %{token_transfer: _token_transfer},
+        %{token_transfers: token_transfers},
         %Phoenix.Socket{handler: BlockScoutWeb.UserSocketV2} = socket
-      ) do
-    push(socket, "token_transfer", %{token_transfer: 1})
+      )
+      when is_list(token_transfers) do
+    push(socket, "token_transfer", %{token_transfer: Enum.count(token_transfers)})
 
     {:noreply, socket}
   end
 
-  def handle_out("token_transfer", %{token_transfer: token_transfer}, socket) do
+  def handle_out(
+        "token_transfer",
+        %{token_transfer: token_transfer},
+        %Phoenix.Socket{handler: BlockScoutWeb.UserSocket} = socket
+      ) do
     Gettext.put_locale(BlockScoutWeb.Gettext, socket.assigns.locale)
 
     rendered_token_transfer =
@@ -50,6 +55,10 @@ defmodule BlockScoutWeb.TokenChannel do
     {:noreply, socket}
   end
 
+  def handle_out("token_transfer", _, socket) do
+    {:noreply, socket}
+  end
+
   def handle_out(
         "token_total_supply",
         %{token: %Explorer.Chain.Token{total_supply: total_supply}},
@@ -64,8 +73,8 @@ defmodule BlockScoutWeb.TokenChannel do
     push(socket, "total_supply", %{
       total_supply:
         if(TokensView.decimals?(token),
-          do: CurrencyHelpers.format_according_to_decimals(token.total_supply, token.decimals),
-          else: CurrencyHelpers.format_integer_to_currency(token.total_supply)
+          do: CurrencyHelper.format_according_to_decimals(token.total_supply, token.decimals),
+          else: CurrencyHelper.format_integer_to_currency(token.total_supply)
         )
     })
 
