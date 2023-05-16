@@ -127,8 +127,8 @@
           </li>
         <% end %>
          <li class="nav-item dropdown">
-         <a href="https://trustless.computer" role="button" class="nav-link topnav-nav-link"  aria-haspopup="true" aria-expanded="false">
-           DApps
+         <a href="https://nft.trustless.computer" role="button" class="nav-link topnav-nav-link"  aria-haspopup="true" aria-expanded="false">
+           NFTs
           </a>
         </li>
         <!-- Dark mode changer -->
