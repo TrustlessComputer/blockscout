@@ -1,12 +1,12 @@
-name: Publish Docker image on every push to master branch
+name: Publish Docker image on every push to main branch
 
 on:
   push:
     branches:
-      - master
+      - main
 env:
-  OTP_VERSION: '25.2.1'
-  ELIXIR_VERSION: '1.14.3'
+  OTP_VERSION: "25.2.1"
+  ELIXIR_VERSION: "1.14.3"
   RELEASE_VERSION: 5.1.1
 
 jobs:
