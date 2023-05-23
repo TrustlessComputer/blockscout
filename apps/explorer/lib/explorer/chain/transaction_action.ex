@@ -9,7 +9,7 @@ defmodule Explorer.Chain.TransactionAction do
   }
 
   @required_attrs ~w(hash protocol data type log_index)a
-  @supported_protocols [:uniswap_v3, :opensea_v1_1, :wrapping, :approval, :zkbob, :aave_v3]
+  @supported_protocols [:uniswap_v3, :opensea_v1_1, :wrapping, :approval, :zkbob]
 
   @typedoc """
   * `hash` - transaction hash
@@ -46,14 +46,7 @@ defmodule Explorer.Chain.TransactionAction do
         :approve,
         :revoke,
         :withdraw,
-        :deposit,
-        :borrow,
-        :supply,
-        :repay,
-        :flash_loan,
-        :enable_collateral,
-        :disable_collateral,
-        :liquidation_call
+        :deposit
       ]
     )
 

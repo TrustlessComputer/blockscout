@@ -1,7 +1,7 @@
 defmodule BlockScoutWeb.AddressCoinBalanceView do
   use BlockScoutWeb, :view
 
-  alias BlockScoutWeb.AccessHelper
+  alias BlockScoutWeb.AccessHelpers
   alias Explorer.Chain.Wei
 
   def format(%Wei{} = value) do

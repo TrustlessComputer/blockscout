@@ -3,9 +3,18 @@ $dashboard-banner-gradient-end: lighten(
   $dashboard-banner-gradient-start,
   5%
 ) !default;
-$dashboard-banner-network-plain-container-background-color: lighten($dashboard-banner-gradient-end, 5%) !default;
-$dashboard-line-color-price: lighten($dashboard-banner-gradient-end, 5%) !default;
-$dashboard-line-color-price-dark-theme: lighten($dashboard-banner-gradient-end, 5%) !default;
+$dashboard-banner-network-plain-container-background-color: lighten(
+  $dashboard-banner-gradient-end,
+  5%
+) !default;
+$dashboard-line-color-price: lighten(
+  $dashboard-banner-gradient-end,
+  5%
+) !default;
+$dashboard-line-color-price-dark-theme: lighten(
+  $dashboard-banner-gradient-end,
+  5%
+) !default;
 $dashboard-line-color-market: $secondary !default;
 $dashboard-line-color-market-dark-theme: $secondary !default;
 $dashboard-line-color-transactions: $warning !default;
@@ -27,10 +36,10 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   position: relative;
   height: 264px;
   @include media-breakpoint-down(sm) {
-      height: auto;
+    height: auto;
   }
   @include media-breakpoint-down(md) {
-      height: auto;
+    height: auto;
   }
 }
 
@@ -93,7 +102,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   display: grid;
   grid-template-columns: 0.6fr 0.9fr 0.9fr 0.9fr;
   padding-bottom: 12px;
-  padding-left:20px;
+  padding-left: 20px;
 
   @include media-breakpoint-down(sm) {
     grid-template-columns: 1fr 1fr;
@@ -145,7 +154,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
     &.market-cap-per-day {
       &::before {
-        background-color:$dashboard-line-color-market;
+        background-color: $dashboard-line-color-market;
       }
     }
 
@@ -159,7 +168,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   .dashboard-banner-chart-legend-label {
     color: $dashboard-banner-chart-legend-label-color;
     display: block;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     line-height: 1.2;
     margin: 0 0 5px;
@@ -177,7 +186,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
   .dashboard-banner-chart-legend-value {
     color: $dashboard-banner-chart-legend-value-color;
     display: block;
-    font-size: 12px;
+    font-size: 18px;
     font-weight: normal;
     line-height: 1.2;
 
@@ -272,7 +281,11 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
     grid-template-columns: 1fr 1fr;
   }
 
-  @include stats-item($dashboard-stats-item-border-color, $dashboard-stats-item-label-color, $dashboard-stats-item-value-color);
+  @include stats-item(
+    $dashboard-stats-item-border-color,
+    $dashboard-stats-item-label-color,
+    $dashboard-stats-item-value-color
+  );
 
   .dashboard-banner-network-stats-item {
     @media (max-width: 374px) {
@@ -283,7 +296,7 @@ $dashboard-banner-chart-axis-font-color-alt: #333;
 
   .dashboard-banner-network-stats-value {
     @media (max-width: 374px) {
-      font-size: 0.9rem;
+      font-size: 2rem;
     }
   }
 }

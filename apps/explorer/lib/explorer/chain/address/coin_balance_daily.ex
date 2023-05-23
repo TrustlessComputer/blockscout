@@ -46,8 +46,9 @@ defmodule Explorer.Chain.Address.CoinBalanceDaily do
   `n` is configurable via COIN_BALANCE_HISTORY_DAYS ENV var.
   """
   def balances_by_day(address_hash) do
-    days_to_consider =
+    {days_to_consider, _} =
       Application.get_env(:block_scout_web, BlockScoutWeb.Chain.Address.CoinBalance)[:coin_balance_history_days]
+      |> Integer.parse()
 
     CoinBalanceDaily
     |> where([cbd], cbd.address_hash == ^address_hash)

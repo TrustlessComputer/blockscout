@@ -26,7 +26,7 @@ defmodule BlockScoutWeb do
       import BlockScoutWeb.Router.Helpers
       import BlockScoutWeb.WebRouter.Helpers, except: [static_path: 2]
       import BlockScoutWeb.Gettext
-      import BlockScoutWeb.ErrorHelper
+      import BlockScoutWeb.ErrorHelpers
       import Plug.Conn
 
       alias BlockScoutWeb.AdminRouter.Helpers, as: AdminRoutes
@@ -46,14 +46,14 @@ defmodule BlockScoutWeb do
       use Phoenix.HTML
 
       import BlockScoutWeb.{
-        CurrencyHelper,
-        ErrorHelper,
+        CurrencyHelpers,
+        ErrorHelpers,
         Gettext,
         Router.Helpers,
-        TabHelper,
-        Tokens.Helper,
-        Views.ScriptHelper,
-        WeiHelper
+        TabHelpers,
+        Tokens.Helpers,
+        Views.ScriptHelpers,
+        WeiHelpers
       }
 
       import BlockScoutWeb.WebRouter.Helpers, except: [static_path: 2]

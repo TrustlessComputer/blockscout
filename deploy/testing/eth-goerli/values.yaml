@@ -25,9 +25,9 @@ blockscout:
         _default: "3"
     requests:
       memory:
-        _default: "6Gi"
+        _default: "8Gi"
       cpu:
-        _default: "2"
+        _default: "3"
 
   # node label
   nodeSelector:
@@ -77,11 +77,11 @@ blockscout:
       _default: 'true'
     CHAIN_ID:
       _default: 5
-    MICROSERVICE_SC_VERIFIER_ENABLED:
+    ENABLE_RUST_VERIFICATION_SERVICE:
       _default: 'true'
-    MICROSERVICE_VISUALIZE_SOL2UML_ENABLED:
+    VISUALIZE_SOL2UML_ENABLED:
       _default: 'true'
-    MICROSERVICE_SIG_PROVIDER_ENABLED:
+    SIG_PROVIDER_ENABLED:
       _default: 'true'
     INDEXER_MEMORY_LIMIT:
       _default: 7
@@ -99,7 +99,7 @@ blockscout:
       _default: 60
     INDEXER_INTERNAL_TRANSACTIONS_BATCH_SIZE:
       _default: 15
-    INDEXER_DISABLE_EMPTY_BLOCKS_SANITIZER:
+    INDEXER_DISABLE_EMPTY_BLOCK_SANITIZER:
       _default: 'true'
     INDEXER_RECEIPTS_BATCH_SIZE:
       _default: 50
@@ -111,7 +111,7 @@ blockscout:
       _default: 'true'
     DISABLE_EXCHANGE_RATES:
       _default: 'true'
-    SOURCIFY_INTEGRATION_ENABLED:
+    ENABLE_SOURCIFY_INTEGRATION:
       _default: 'true'
 
 frontend:
@@ -154,14 +154,14 @@ frontend:
   resources:
     limits:
       memory:
-        _default: "2Gi"
+        _default: "7Gi"
       cpu:
-        _default: "2"
+        _default: "4"
     requests:
       memory:
-        _default: "512Mi"
+        _default: "7Gi"
       cpu:
-        _default: "250m"
+        _default: "4"
   # node label
   nodeSelector:
     enabled: true
@@ -179,6 +179,8 @@ frontend:
       _default: Goerli
     NEXT_PUBLIC_NETWORK_ASSETS_PATHNAME:
       _default: ethereum
+    NEXT_PUBLIC_NETWORK_TYPE:
+      _default: goerli
     NEXT_PUBLIC_NETWORK_ID:
       _default: 5
     NEXT_PUBLIC_NETWORK_CURRENCY_NAME:
@@ -233,14 +235,14 @@ stats:
   resources:
     limits:
       memory:
-        _default: 128Mi
+        _default: "0.1Gi"
       cpu:
-        _default: 100m
+        _default: "0.1"
     requests:
       memory:
-        _default: 128Mi
+        _default: "0.1Gi"
       cpu:
-        _default: 100m
+        _default: "0.1"
 
   # node label
   nodeSelector:
@@ -271,15 +273,11 @@ postgres:
   command: '["docker-entrypoint.sh", "-c"]'
   args: '["max_connections=500"]'
 
-  customShm:
-    enabled: false
-
   files:
     enabled: true
     mountPath: /docker-entrypoint-initdb.d
 
   persistence: true
-  storage: 500Gi
 
   resources:
     limits:
@@ -307,14 +305,14 @@ scVerifier:
   resources:
     limits:
       memory:
-        _default: 512Mi
+        _default: "0.5Gi"
       cpu:
-        _default: 250m
+        _default: "0.25"
     requests:
       memory:
-        _default: 512Mi
+        _default: "0.5Gi"
       cpu:
-        _default: 250m
+        _default: "0.25"
   # probes
   livenessProbe:
     enabled: true
@@ -381,14 +379,14 @@ visualizer:
   resources:
     limits:
       memory:
-        _default: 64Mi
+        _default: "0.05Gi"
       cpu:
-        _default: 50m
+        _default: "0.05"
     requests:
       memory:
-        _default: 64Mi
+        _default: "0.05Gi"
       cpu:
-        _default: 50m
+        _default: "0.05"
 
   # node label
   nodeSelector:

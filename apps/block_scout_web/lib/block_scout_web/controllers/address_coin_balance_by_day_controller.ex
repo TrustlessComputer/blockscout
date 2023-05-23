@@ -5,12 +5,12 @@ defmodule BlockScoutWeb.AddressCoinBalanceByDayController do
 
   use BlockScoutWeb, :controller
 
-  alias BlockScoutWeb.AccessHelper
+  alias BlockScoutWeb.AccessHelpers
   alias Explorer.Chain
 
   def index(conn, %{"address_id" => address_hash_string, "type" => "JSON"} = params) do
     with {:ok, address_hash} <- Chain.string_to_address_hash(address_hash_string),
-         {:ok, false} <- AccessHelper.restricted_access?(address_hash_string, params) do
+         {:ok, false} <- AccessHelpers.restricted_access?(address_hash_string, params) do
       balances_by_day =
         address_hash
         |> Chain.address_to_balances_by_day()

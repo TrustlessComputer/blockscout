@@ -1,4 +1,4 @@
-defmodule Explorer.Repo.Migrations.AddIndexSymbolInTokens do
+defmodule Explorer.Repo.Migrations.AddIndexSymoblInTokens do
   use Ecto.Migration
 
   def change do

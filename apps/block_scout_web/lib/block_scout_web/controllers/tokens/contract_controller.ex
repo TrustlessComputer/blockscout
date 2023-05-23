@@ -4,7 +4,7 @@ defmodule BlockScoutWeb.Tokens.ContractController do
   import BlockScoutWeb.Account.AuthController, only: [current_user: 1]
   import BlockScoutWeb.Models.GetAddressTags, only: [get_address_tags: 2]
 
-  alias BlockScoutWeb.{AccessHelper, TabHelper}
+  alias BlockScoutWeb.{AccessHelpers, TabHelpers}
   alias Explorer.Chain
   alias Explorer.Chain.Address
 
@@ -14,19 +14,19 @@ defmodule BlockScoutWeb.Tokens.ContractController do
     with {:ok, address_hash} <- Chain.string_to_address_hash(address_hash_string),
          :ok <- Chain.check_verified_smart_contract_exists(address_hash),
          {:ok, token} <- Chain.token_from_address_hash(address_hash, options),
-         {:ok, false} <- AccessHelper.restricted_access?(address_hash_string, params) do
+         {:ok, false} <- AccessHelpers.restricted_access?(address_hash_string, params) do
       %{type: type, action: action} =
         cond do
-          TabHelper.tab_active?("read-contract", conn.request_path) ->
+          TabHelpers.tab_active?("read-contract", conn.request_path) ->
             %{type: :regular, action: :read}
 
-          TabHelper.tab_active?("write-contract", conn.request_path) ->
+          TabHelpers.tab_active?("write-contract", conn.request_path) ->
             %{type: :regular, action: :write}
 
-          TabHelper.tab_active?("read-proxy", conn.request_path) ->
+          TabHelpers.tab_active?("read-proxy", conn.request_path) ->
             %{type: :proxy, action: :read}
 
-          TabHelper.tab_active?("write-proxy", conn.request_path) ->
+          TabHelpers.tab_active?("write-proxy", conn.request_path) ->
             %{type: :proxy, action: :write}
         end
 

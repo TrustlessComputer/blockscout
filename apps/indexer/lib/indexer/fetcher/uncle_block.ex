@@ -16,7 +16,6 @@ defmodule Indexer.Fetcher.UncleBlock do
   alias Explorer.Chain.Hash
   alias Indexer.{Block, BufferedTask, Tracer}
   alias Indexer.Fetcher.UncleBlock
-  alias Indexer.Fetcher.UncleBlock.Supervisor, as: UncleBlockSupervisor
   alias Indexer.Transform.Addresses
 
   @behaviour Block.Fetcher
@@ -36,12 +35,8 @@ defmodule Indexer.Fetcher.UncleBlock do
   """
   @spec async_fetch_blocks([%{required(:nephew_hash) => Hash.Full.t(), required(:index) => non_neg_integer()}]) :: :ok
   def async_fetch_blocks(relations) when is_list(relations) do
-    if UncleBlockSupervisor.disabled?() do
-      :ok
-    else
-      entries = Enum.map(relations, &entry/1)
-      BufferedTask.buffer(__MODULE__, entries)
-    end
+    entries = Enum.map(relations, &entry/1)
+    BufferedTask.buffer(__MODULE__, entries)
   end
 
   @doc false

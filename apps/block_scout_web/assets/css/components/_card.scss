@@ -51,9 +51,9 @@ $card-tab-icon-color-active: #fff !default;
 }
 
 .card-title {
-  font-size: 18px;
-  font-weight: normal;
-  line-height: 1.2rem;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 2.8rem;
   margin-bottom: 2rem;
 
   &.lg-card-title {
@@ -90,9 +90,9 @@ $card-tab-icon-color-active: #fff !default;
 
 .card-subtitle {
   color: #333;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: normal;
-  line-height: 1.2;
+  line-height: 1.6;
   margin: 0 0 30px;
 
   &.margin-bottom-0 {
@@ -215,7 +215,7 @@ $card-tab-icon-color-active: #fff !default;
   transition: $transition-cont;
 
   &:hover {
-    background-color: rgba($card-tab-active, .15);
+    background-color: rgba($card-tab-active, 0.15);
     color: $card-tab-active;
     text-decoration: none;
   }
@@ -266,8 +266,8 @@ $card-tab-icon-color-active: #fff !default;
 
 .mob-transaction {
   @include media-breakpoint-down(sm) {
-    margin-left: 15px!important;
-  } 
+    margin-left: 15px !important;
+  }
 }
 
 .implementation-container {

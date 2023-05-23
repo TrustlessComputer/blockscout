@@ -2,7 +2,7 @@ defmodule BlockScoutWeb.TransactionStateController do
   use BlockScoutWeb, :controller
 
   alias BlockScoutWeb.{
-    AccessHelper,
+    AccessHelpers,
     Controller,
     Models.TransactionStateHelper,
     TransactionController,
@@ -33,9 +33,9 @@ defmodule BlockScoutWeb.TransactionStateController do
              }
            ),
          {:ok, false} <-
-           AccessHelper.restricted_access?(to_string(transaction.from_address_hash), params),
+           AccessHelpers.restricted_access?(to_string(transaction.from_address_hash), params),
          {:ok, false} <-
-           AccessHelper.restricted_access?(to_string(transaction.to_address_hash), params) do
+           AccessHelpers.restricted_access?(to_string(transaction.to_address_hash), params) do
       state_changes = TransactionStateHelper.state_changes(transaction)
 
       rendered_changes =
@@ -87,9 +87,9 @@ defmodule BlockScoutWeb.TransactionStateController do
              }
            ),
          {:ok, false} <-
-           AccessHelper.restricted_access?(to_string(transaction.from_address_hash), params),
+           AccessHelpers.restricted_access?(to_string(transaction.from_address_hash), params),
          {:ok, false} <-
-           AccessHelper.restricted_access?(to_string(transaction.to_address_hash), params) do
+           AccessHelpers.restricted_access?(to_string(transaction.to_address_hash), params) do
       render(
         conn,
         "index.html",

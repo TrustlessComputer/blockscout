@@ -24,10 +24,10 @@ defmodule BlockScoutWeb.API.RPC.AddressControllerTest do
     start_supervised!({CoinBalanceOnDemand, [mocked_json_rpc_named_arguments, [name: CoinBalanceOnDemand]]})
     start_supervised!(AddressesCounter)
 
-    Application.put_env(:explorer, AverageBlockTime, enabled: true, cache_period: 1_800_000)
+    Application.put_env(:explorer, AverageBlockTime, enabled: true)
 
     on_exit(fn ->
-      Application.put_env(:explorer, AverageBlockTime, enabled: false, cache_period: 1_800_000)
+      Application.put_env(:explorer, AverageBlockTime, enabled: false)
     end)
 
     :ok
